@@ -1,8 +1,5 @@
 {
-  "entrypoint": "me.heroostech.exampleextension.ExampleExtension",
-  "name": "example",
-  "version": "v1.0.0",
-  "dependencies": [
-    "minestomfloodgate"
-  ]
+  "entrypoint": "me.heroostech.stomgui.StomGUI",
+  "name": "stomgui",
+  "version": "v1.0.0"
 }

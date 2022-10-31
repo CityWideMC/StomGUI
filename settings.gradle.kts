@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "ExampleExtension"
+rootProject.name = "StomGUI"
 
 dependencyResolutionManagement {
     versionCatalogs {

@@ -2,7 +2,7 @@ plugins {
     id("java")
 }
 
-group = "me.heroostech.exampleextension"
+group = "me.heroostech.stomgui"
 version = "v1.0.0"
 
 repositories {
