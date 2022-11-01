@@ -24,10 +24,12 @@ public class GUIListener implements Listener<InventoryEvent> {
             if(!(inventory instanceof GUIImpl gui)) return;
             if(!gui.getStomGUI().equals(stomGUI)) return;
 
+            var button = gui.getButtons().get(event.getSlot());
+
+            if(button == null) return;
+
             if(gui.clickHandler() != null)
                 gui.clickHandler().accept(event);
-
-            var button = gui.getButtons().get(event.getSlot());
 
             if(button.clickHandler() != null)
                 button.clickHandler().accept(event);
