@@ -27,8 +27,10 @@ class GUIImpl extends Inventory implements GUI {
         this.closeHandler = closeHandler;
         this.stomGUI = gui;
         this.buttons = buttons;
-        for(int i = 0; i < this.getInventoryType().getSize(); i++)
+        for(int i = 0; i < this.getInventoryType().getSize(); i++) {
+            buttons.put(i, fillBlanks);
             setItemStack(i, fillBlanks.stack());
+        }
         buttons.forEach((integer, button) -> setItemStack(integer, button.stack()));
     }
 
