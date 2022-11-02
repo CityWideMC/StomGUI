@@ -1,7 +1,7 @@
 package me.heroostech.stomgui.gui;
 
 import lombok.RequiredArgsConstructor;
-import me.heroostech.cityengine.extension.listener.Listener;
+import me.heroostech.citystom.listener.Listener;
 import me.heroostech.stomgui.StomGUI;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;

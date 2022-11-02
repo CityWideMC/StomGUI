@@ -1,7 +1,7 @@
 package me.heroostech.stomgui;
 
 import lombok.Getter;
-import me.heroostech.cityengine.extension.Extension;
+import me.heroostech.citystom.Extension;
 import me.heroostech.stomgui.gui.GUIListener;
 
 @SuppressWarnings("ClassCanBeRecord")

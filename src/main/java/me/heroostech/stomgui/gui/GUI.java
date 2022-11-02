@@ -2,10 +2,10 @@ package me.heroostech.stomgui.gui;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import me.heroostech.cityengine.player.Player;
 import me.heroostech.stomgui.StomGUI;
 import me.heroostech.stomgui.button.Button;
 import net.kyori.adventure.text.Component;
+import net.minestom.server.entity.Player;
 import net.minestom.server.event.inventory.InventoryCloseEvent;
 import net.minestom.server.event.inventory.InventoryPreClickEvent;
 import net.minestom.server.inventory.InventoryType;
