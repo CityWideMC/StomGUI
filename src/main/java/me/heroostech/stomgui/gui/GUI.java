@@ -23,6 +23,8 @@ public interface GUI {
     Consumer<InventoryPreClickEvent> clickHandler();
     Consumer<InventoryCloseEvent> closeHandler();
     void openInventory(Player player);
+    void setButton(int slot, Button button);
+    void refreshInventory();
 
     @RequiredArgsConstructor
     enum GUIType {

@@ -1,8 +1,9 @@
 package me.heroostech.stomgui.button;
 
-import net.minestom.server.event.inventory.InventoryPreClickEvent;
+import me.heroostech.stomgui.gui.GUI;
+import net.minestom.server.entity.Player;
 import net.minestom.server.item.ItemStack;
 
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
-public record Button(ItemStack stack, Consumer<InventoryPreClickEvent> clickHandler) {}
+public record Button(ItemStack stack, BiConsumer<GUI, Player> clickHandler) {}

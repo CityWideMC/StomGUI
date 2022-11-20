@@ -61,6 +61,17 @@ class GUIImpl extends Inventory implements GUI {
         player.openInventory(this);
     }
 
+    @Override
+    public void setButton(int slot, Button button) {
+        this.buttons.remove(slot);
+        this.buttons.put(slot, button);
+    }
+
+    @Override
+    public void refreshInventory() {
+        this.buttons.forEach((slot, button) -> this.setItemStack(slot, button.stack()));
+    }
+
     static class Builder implements GUI.Builder {
         private Component title;
         private GUIType type;

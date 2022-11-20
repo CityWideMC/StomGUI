@@ -14,14 +14,14 @@ repositories {
 
 dependencies {
     compileOnly(libs.minestom)
-    implementation(libs.citystom)
+    compileOnly(libs.citystom)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 }
 
 publishing {
     publications {
-        create<MavenPublication>("minestom") {
+        create<MavenPublication>("maven") {
             groupId = "me.heroostech.stomgui"
             artifactId = "StomGUI"
             version = "v1.0.0"
