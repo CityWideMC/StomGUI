@@ -1,8 +1,8 @@
 package me.heroostech.stomgui.gui.java;
 
 import lombok.RequiredArgsConstructor;
+import me.heroostech.citystom.Extension;
 import me.heroostech.citystom.listener.Listener;
-import me.heroostech.stomgui.StomGUI;
 import me.heroostech.stomgui.gui.java.button.Button;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;
@@ -14,7 +14,7 @@ import net.minestom.server.inventory.Inventory;
 @RequiredArgsConstructor
 public final class GUIListener implements Listener<InventoryEvent> {
 
-    private final StomGUI stomGUI;
+    private final Extension extension;
 
     @Override
     public EventNode<InventoryEvent> events() {
@@ -24,7 +24,7 @@ public final class GUIListener implements Listener<InventoryEvent> {
             Inventory inventory = event.getInventory();
 
             if(!(inventory instanceof GUIImpl gui)) return;
-            if(!gui.getStomGUI().equals(stomGUI)) return;
+            if(!gui.getExtension().equals(extension)) return;
 
             event.setCancelled(true);
 
@@ -43,7 +43,7 @@ public final class GUIListener implements Listener<InventoryEvent> {
            Inventory inventory = event.getInventory();
 
             if(!(inventory instanceof GUIImpl gui)) return;
-            if(!gui.getStomGUI().equals(stomGUI)) return;
+            if(!gui.getExtension().equals(extension)) return;
 
             if(gui.closeHandler() != null)
                 gui.closeHandler().accept(event);

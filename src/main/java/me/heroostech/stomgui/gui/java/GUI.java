@@ -1,6 +1,6 @@
 package me.heroostech.stomgui.gui.java;
 
-import me.heroostech.stomgui.StomGUI;
+import me.heroostech.citystom.Extension;
 import me.heroostech.stomgui.gui.java.button.Button;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.entity.Player;
@@ -10,10 +10,10 @@ import net.minestom.server.inventory.InventoryType;
 
 import java.util.function.Consumer;
 
-public interface GUI {
+public sealed interface GUI permits GUIImpl {
 
-    static Builder builder(Component title, InventoryType type, StomGUI stomGUI) {
-        return new GUIImpl.Builder(title, type, stomGUI);
+    static Builder builder(Component title, InventoryType type, Extension extension) {
+        return new GUIImpl.Builder(title, type, extension);
     }
 
     Component title();

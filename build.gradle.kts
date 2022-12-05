@@ -16,6 +16,7 @@ dependencies {
     compileOnly(libs.minestom)
     compileOnly(libs.citystom)
     compileOnly(libs.lombok)
+    compileOnly(libs.geyserutils)
     annotationProcessor(libs.lombok)
 }
 

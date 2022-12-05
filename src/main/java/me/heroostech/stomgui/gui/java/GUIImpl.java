@@ -1,7 +1,7 @@
 package me.heroostech.stomgui.gui.java;
 
 import lombok.Getter;
-import me.heroostech.stomgui.StomGUI;
+import me.heroostech.citystom.Extension;
 import me.heroostech.stomgui.gui.java.button.Button;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.entity.Player;
@@ -16,14 +16,14 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-class GUIImpl extends Inventory implements GUI {
+final class GUIImpl extends Inventory implements GUI {
     private final InventoryType type;
     private final Consumer<InventoryPreClickEvent> clickHandler;
     private final Consumer<InventoryCloseEvent> closeHandler;
     @Getter private final HashMap<Integer, Button> buttons;
-    @Getter private final StomGUI stomGUI;
+    @Getter private final Extension extension;
 
-    public GUIImpl(@NotNull InventoryType type, @NotNull Component title, @NotNull HashMap<Integer, Button> buttons, @NotNull Consumer<InventoryPreClickEvent> clickHandler, @NotNull Consumer<InventoryCloseEvent> closeHandler, @NotNull StomGUI gui, @Nullable Button fillBlanks) {
+    public GUIImpl(@NotNull InventoryType type, @NotNull Component title, @NotNull HashMap<Integer, Button> buttons, @NotNull Consumer<InventoryPreClickEvent> clickHandler, @NotNull Consumer<InventoryCloseEvent> closeHandler, Extension extension, @Nullable Button fillBlanks) {
         super(Objects.requireNonNull(type, "type"), Objects.requireNonNull(title, "title"));
         Objects.requireNonNull(buttons, "buttons");
         Objects.requireNonNull(clickHandler, "clickHandler");
@@ -31,7 +31,7 @@ class GUIImpl extends Inventory implements GUI {
         this.type = type;
         this.clickHandler = clickHandler;
         this.closeHandler = closeHandler;
-        this.stomGUI = gui;
+        this.extension = extension;
         this.buttons = buttons;
         buttons.forEach((integer, button) -> setItemStack(integer, button.stack()));
         if(fillBlanks != null) {
@@ -88,10 +88,10 @@ class GUIImpl extends Inventory implements GUI {
         private Consumer<InventoryPreClickEvent> clickHandler;
         private Consumer<InventoryCloseEvent> closeHandler;
         private Button fillBlanks;
-        private final StomGUI stomGUI;
+        private final Extension extension;
 
-        public Builder(Component title, InventoryType type, StomGUI stomGUI) {
-            this.stomGUI = stomGUI;
+        public Builder(Component title, InventoryType type, Extension extension) {
+            this.extension = extension;
             buttons = new HashMap<>();
             nextButton = 0;
             this.title = title;
@@ -148,7 +148,7 @@ class GUIImpl extends Inventory implements GUI {
 
         @Override
         public GUI build() {
-            return new GUIImpl(type, title, buttons, clickHandler, closeHandler, stomGUI, fillBlanks);
+            return new GUIImpl(type, title, buttons, clickHandler, closeHandler, extension, fillBlanks);
         }
     }
 }
