@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "me.heroostech.stomgui"
-version = "v1.0.0"
+version = "2.0"
 
 repositories {
     mavenCentral()
@@ -24,7 +24,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "me.heroostech.stomgui"
             artifactId = "StomGUI"
-            version = "v1.0.0"
+            version = "2.0"
 
             from(components["java"])
         }
