@@ -8,30 +8,38 @@ import net.minestom.server.entity.Player;
 import net.minestom.server.event.inventory.InventoryCloseEvent;
 import net.minestom.server.event.inventory.InventoryPreClickEvent;
 import net.minestom.server.inventory.Inventory;
+import net.minestom.server.inventory.InventoryType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 class GUIImpl extends Inventory implements GUI {
-    private final GUIType type;
+    private final InventoryType type;
     private final Consumer<InventoryPreClickEvent> clickHandler;
     private final Consumer<InventoryCloseEvent> closeHandler;
     @Getter private final HashMap<Integer, Button> buttons;
     @Getter private final StomGUI stomGUI;
 
-    public GUIImpl(@NotNull GUIType type, @NotNull Component title, @NotNull HashMap<Integer, Button> buttons, Consumer<InventoryPreClickEvent> clickHandler, Consumer<InventoryCloseEvent> closeHandler, @NotNull StomGUI gui, Button fillBlanks) {
-        super(type.getType(), title);
+    public GUIImpl(@NotNull InventoryType type, @NotNull Component title, @NotNull HashMap<Integer, Button> buttons, @NotNull Consumer<InventoryPreClickEvent> clickHandler, @NotNull Consumer<InventoryCloseEvent> closeHandler, @NotNull StomGUI gui, @Nullable Button fillBlanks) {
+        super(Objects.requireNonNull(type, "type"), Objects.requireNonNull(title, "title"));
+        Objects.requireNonNull(buttons, "buttons");
+        Objects.requireNonNull(clickHandler, "clickHandler");
+        Objects.requireNonNull(closeHandler, "closeHandler");
         this.type = type;
         this.clickHandler = clickHandler;
         this.closeHandler = closeHandler;
         this.stomGUI = gui;
         this.buttons = buttons;
         buttons.forEach((integer, button) -> setItemStack(integer, button.stack()));
-        for(int i = 0; i < this.getInventoryType().getSize(); i++) {
-            if(!buttons.containsKey(i)) {
-                buttons.put(i, fillBlanks);
-                setItemStack(i, fillBlanks.stack());
+        if(fillBlanks != null) {
+            for (int i = 0; i < this.getInventoryType().getSize(); i++) {
+                if (!buttons.containsKey(i)) {
+                    buttons.put(i, fillBlanks);
+                    setItemStack(i, fillBlanks.stack());
+                }
             }
         }
     }
@@ -42,7 +50,7 @@ class GUIImpl extends Inventory implements GUI {
     }
 
     @Override
-    public GUIType type() {
+    public InventoryType type() {
         return type;
     }
 
@@ -74,7 +82,7 @@ class GUIImpl extends Inventory implements GUI {
 
     static class Builder implements GUI.Builder {
         private Component title;
-        private GUIType type;
+        private InventoryType type;
         private final HashMap<Integer, Button> buttons;
         private int nextButton;
         private Consumer<InventoryPreClickEvent> clickHandler;
@@ -82,7 +90,7 @@ class GUIImpl extends Inventory implements GUI {
         private Button fillBlanks;
         private final StomGUI stomGUI;
 
-        public Builder(Component title, GUIType type, StomGUI stomGUI) {
+        public Builder(Component title, InventoryType type, StomGUI stomGUI) {
             this.stomGUI = stomGUI;
             buttons = new HashMap<>();
             nextButton = 0;
@@ -97,14 +105,14 @@ class GUIImpl extends Inventory implements GUI {
         }
 
         @Override
-        public GUI.Builder type(GUIType type) {
+        public GUI.Builder type(InventoryType type) {
             this.type = type;
             return this;
         }
 
         @Override
         public GUI.Builder button(Button button) {
-            if(nextButton > type.getType().getSize() - 1)
+            if(nextButton > type.getSize() - 1)
                 throw new UnsupportedOperationException();
             buttons.put(nextButton, button);
             nextButton++;
@@ -113,7 +121,7 @@ class GUIImpl extends Inventory implements GUI {
 
         @Override
         public GUI.Builder button(int slot, Button button) {
-            if(slot > type.getType().getSize() - 1)
+            if(slot > type.getSize() - 1)
                 throw new UnsupportedOperationException();
             buttons.put(slot, button);
             nextButton = slot + 1;

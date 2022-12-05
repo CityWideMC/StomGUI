@@ -12,7 +12,7 @@ import net.minestom.server.event.trait.InventoryEvent;
 import net.minestom.server.inventory.Inventory;
 
 @RequiredArgsConstructor
-public class GUIListener implements Listener<InventoryEvent> {
+public final class GUIListener implements Listener<InventoryEvent> {
 
     private final StomGUI stomGUI;
 

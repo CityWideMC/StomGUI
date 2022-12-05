@@ -1,7 +1,5 @@
 package me.heroostech.stomgui.gui;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import me.heroostech.stomgui.StomGUI;
 import me.heroostech.stomgui.button.Button;
 import net.kyori.adventure.text.Component;
@@ -14,33 +12,21 @@ import java.util.function.Consumer;
 
 public interface GUI {
 
-    static Builder builder(Component title, GUIType type, StomGUI stomGUI) {
+    static Builder builder(Component title, InventoryType type, StomGUI stomGUI) {
         return new GUIImpl.Builder(title, type, stomGUI);
     }
 
     Component title();
-    GUIType type();
+    InventoryType type();
     Consumer<InventoryPreClickEvent> clickHandler();
     Consumer<InventoryCloseEvent> closeHandler();
     void openInventory(Player player);
     void setButton(int slot, Button button);
     void refreshInventory();
 
-    @RequiredArgsConstructor
-    enum GUIType {
-        ROW_2(InventoryType.CHEST_2_ROW),
-        ROW_3(InventoryType.CHEST_3_ROW),
-        ROW_4(InventoryType.CHEST_4_ROW),
-        ROW_5(InventoryType.CHEST_5_ROW),
-        ROW_6(InventoryType.CHEST_6_ROW);
-
-        @Getter
-        private final InventoryType type;
-    }
-
     interface Builder {
         Builder title(Component title);
-        Builder type(GUIType type);
+        Builder type(InventoryType type);
         Builder button(Button button);
         Builder button(int slot, Button button);
         Builder clickHandler(Consumer<InventoryPreClickEvent> clickHandler);
