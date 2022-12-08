@@ -21,9 +21,7 @@ public sealed interface SimpleGUI permits SimpleGUIImpl {
 
     interface Builder {
         Builder title(String title);
-
         Builder content(String content);
-
         Builder button(ButtonComponent button);
         Builder clickHandler(Consumer<SimpleFormResponse> clickHandler);
         SimpleGUI build();
