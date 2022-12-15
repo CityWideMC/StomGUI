@@ -1,7 +1,6 @@
 package me.heroostech.stomgui.gui.java;
 
 import lombok.Getter;
-import me.heroostech.citystom.Extension;
 import me.heroostech.stomgui.gui.java.button.Button;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.entity.Player;
@@ -11,6 +10,7 @@ import net.minestom.server.inventory.Inventory;
 import net.minestom.server.inventory.InventoryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.citywide.citystom.Extension;
 
 import java.util.HashMap;
 import java.util.Objects;

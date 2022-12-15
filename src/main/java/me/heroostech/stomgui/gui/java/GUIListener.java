@@ -1,8 +1,6 @@
 package me.heroostech.stomgui.gui.java;
 
 import lombok.RequiredArgsConstructor;
-import me.heroostech.citystom.Extension;
-import me.heroostech.citystom.listener.Listener;
 import me.heroostech.stomgui.gui.java.button.Button;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;
@@ -10,13 +8,13 @@ import net.minestom.server.event.inventory.InventoryCloseEvent;
 import net.minestom.server.event.inventory.InventoryPreClickEvent;
 import net.minestom.server.event.trait.InventoryEvent;
 import net.minestom.server.inventory.Inventory;
+import xyz.citywide.citystom.Extension;
 
 @RequiredArgsConstructor
-public final class GUIListener implements Listener<InventoryEvent> {
+public final class GUIListener {
 
     private final Extension extension;
 
-    @Override
     public EventNode<InventoryEvent> events() {
         EventNode<InventoryEvent> node = EventNode.type("stomgui", EventFilter.INVENTORY);
 

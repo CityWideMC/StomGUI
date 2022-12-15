@@ -1,7 +1,6 @@
 package me.heroostech.stomgui.gui.bedrock;
 
 import lombok.Getter;
-import me.heroostech.citystom.Extension;
 import me.heroostech.geyserutils.FloodgateApi;
 import me.heroostech.geyserutils.forms.ModalForm;
 import me.heroostech.geyserutils.forms.response.ModalFormResponse;
@@ -9,6 +8,7 @@ import net.minestom.server.event.Event;
 import net.minestom.server.event.EventListener;
 import net.minestom.server.event.EventNode;
 import org.jetbrains.annotations.NotNull;
+import xyz.citywide.citystom.Extension;
 
 import java.util.Objects;
 import java.util.UUID;

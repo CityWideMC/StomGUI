@@ -1,7 +1,7 @@
 package me.heroostech.stomgui.gui.bedrock;
 
-import me.heroostech.citystom.Extension;
 import me.heroostech.geyserutils.forms.response.ModalFormResponse;
+import xyz.citywide.citystom.Extension;
 
 import java.util.UUID;
 import java.util.function.Consumer;
