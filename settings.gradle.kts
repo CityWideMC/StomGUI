@@ -8,7 +8,7 @@ dependencyResolutionManagement {
             library("minestom", "com.github.Minestom:Minestom:-SNAPSHOT")
             library("citystom", "com.github.CityWideMC:CityStom:e29aef03")
             library("lombok", "org.projectlombok:lombok:1.18.24")
-            library("geyserutils", "me.heroostech.geyserutls:GeyserUtils:2.0")
+            library("geyserutils", "me.heroostech.geyserutils:GeyserUtils:2.0")
         }
     }
 }

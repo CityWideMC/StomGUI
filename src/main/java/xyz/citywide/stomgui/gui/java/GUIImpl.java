@@ -23,11 +23,9 @@ final class GUIImpl extends Inventory implements GUI {
     @Getter private final HashMap<Integer, Button> buttons;
     @Getter private final Extension extension;
 
-    public GUIImpl(@NotNull InventoryType type, @NotNull Component title, @NotNull HashMap<Integer, Button> buttons, @NotNull Consumer<InventoryPreClickEvent> clickHandler, @NotNull Consumer<InventoryCloseEvent> closeHandler, Extension extension, @Nullable Button fillBlanks) {
+    public GUIImpl(@NotNull InventoryType type, @NotNull Component title, @NotNull HashMap<Integer, Button> buttons, Consumer<InventoryPreClickEvent> clickHandler, Consumer<InventoryCloseEvent> closeHandler, Extension extension, @Nullable Button fillBlanks) {
         super(Objects.requireNonNull(type, "type"), Objects.requireNonNull(title, "title"));
         Objects.requireNonNull(buttons, "buttons");
-        Objects.requireNonNull(clickHandler, "clickHandler");
-        Objects.requireNonNull(closeHandler, "closeHandler");
         this.type = type;
         this.clickHandler = clickHandler;
         this.closeHandler = closeHandler;
