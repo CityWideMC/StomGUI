@@ -1,6 +1,6 @@
-package me.heroostech.stomgui.gui.bedrock.button;
+package xyz.citywide.stomgui.gui.bedrock.button;
 
-import me.heroostech.stomgui.gui.bedrock.SimpleGUI;
+import xyz.citywide.stomgui.gui.bedrock.SimpleGUI;
 import net.minestom.server.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,6 +1,6 @@
-package me.heroostech.stomgui.gui.java;
+package xyz.citywide.stomgui.gui.java;
 
-import me.heroostech.stomgui.gui.java.button.Button;
+import xyz.citywide.stomgui.gui.java.button.Button;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.inventory.InventoryCloseEvent;

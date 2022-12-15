@@ -3,7 +3,7 @@ plugins {
     `maven-publish`
 }
 
-group = "me.heroostech.stomgui"
+group = "xyz.citywide.stomgui"
 version = "2.0"
 
 repositories {
@@ -23,7 +23,7 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "me.heroostech.stomgui"
+            groupId = "xyz.citywide.stomgui"
             artifactId = "StomGUI"
             version = "2.0"
 

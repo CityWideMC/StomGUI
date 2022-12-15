@@ -1,7 +1,7 @@
-package me.heroostech.stomgui;
+package xyz.citywide.stomgui;
 
 import lombok.Getter;
-import me.heroostech.stomgui.gui.java.GUIListener;
+import xyz.citywide.stomgui.gui.java.GUIListener;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;

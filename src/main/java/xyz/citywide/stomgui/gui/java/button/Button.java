@@ -1,6 +1,6 @@
-package me.heroostech.stomgui.gui.java.button;
+package xyz.citywide.stomgui.gui.java.button;
 
-import me.heroostech.stomgui.gui.java.GUI;
+import xyz.citywide.stomgui.gui.java.GUI;
 import net.minestom.server.entity.Player;
 import net.minestom.server.item.ItemStack;
 import org.jetbrains.annotations.NotNull;

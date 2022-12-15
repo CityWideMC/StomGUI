@@ -1,4 +1,4 @@
-package me.heroostech.stomgui.gui.bedrock;
+package xyz.citywide.stomgui.gui.bedrock;
 
 import me.heroostech.geyserutils.forms.response.ModalFormResponse;
 import xyz.citywide.citystom.Extension;

@@ -1,11 +1,11 @@
-package me.heroostech.stomgui.gui.bedrock;
+package xyz.citywide.stomgui.gui.bedrock;
 
 import lombok.Getter;
 import me.heroostech.geyserutils.FloodgateApi;
 import me.heroostech.geyserutils.forms.SimpleForm;
 import me.heroostech.geyserutils.forms.response.SimpleFormResponse;
 import me.heroostech.geyserutils.util.FormImage;
-import me.heroostech.stomgui.gui.bedrock.button.ButtonComponent;
+import xyz.citywide.stomgui.gui.bedrock.button.ButtonComponent;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventListener;

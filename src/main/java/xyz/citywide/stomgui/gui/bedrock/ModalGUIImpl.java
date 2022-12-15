@@ -1,4 +1,4 @@
-package me.heroostech.stomgui.gui.bedrock;
+package xyz.citywide.stomgui.gui.bedrock;
 
 import lombok.Getter;
 import me.heroostech.geyserutils.FloodgateApi;

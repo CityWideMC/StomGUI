@@ -1,7 +1,7 @@
-package me.heroostech.stomgui.gui.java;
+package xyz.citywide.stomgui.gui.java;
 
 import lombok.RequiredArgsConstructor;
-import me.heroostech.stomgui.gui.java.button.Button;
+import xyz.citywide.stomgui.gui.java.button.Button;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;
 import net.minestom.server.event.inventory.InventoryCloseEvent;

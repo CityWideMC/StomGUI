@@ -1,7 +1,7 @@
-package me.heroostech.stomgui.gui.bedrock;
+package xyz.citywide.stomgui.gui.bedrock;
 
 import me.heroostech.geyserutils.forms.response.SimpleFormResponse;
-import me.heroostech.stomgui.gui.bedrock.button.ButtonComponent;
+import xyz.citywide.stomgui.gui.bedrock.button.ButtonComponent;
 import xyz.citywide.citystom.Extension;
 
 import java.util.UUID;
