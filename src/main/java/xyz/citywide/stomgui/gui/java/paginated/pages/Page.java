@@ -5,23 +5,20 @@ import net.minestom.server.event.inventory.InventoryPreClickEvent;
 import net.minestom.server.inventory.InventoryType;
 import org.jetbrains.annotations.NotNull;
 import xyz.citywide.citystom.Extension;
-import xyz.citywide.stomgui.gui.java.button.Button;
-import xyz.citywide.stomgui.gui.java.paginated.PaginatedGUI;
+import xyz.citywide.stomgui.gui.java.paginated.button.Button;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
 public sealed interface Page permits PageImpl {
 
-    static Builder builder(@NotNull PaginatedGUI parent, @NotNull HashMap<Integer, Button> buttons, @NotNull InventoryType type, @NotNull Extension extension) {
-        return new PageImpl.Builder(parent, type, extension);
+    static Builder builder(@NotNull InventoryType type, @NotNull Extension extension) {
+        return new PageImpl.Builder(type, extension);
     }
 
     Consumer<InventoryPreClickEvent> clickHandler();
     Consumer<InventoryCloseEvent> closeHandler();
     void setButton(int slot, Button button);
-    PaginatedGUI parent();
     Map<Integer, Button> buttons();
 
     interface Builder {

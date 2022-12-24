@@ -7,8 +7,7 @@ import net.minestom.server.inventory.InventoryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.citywide.citystom.Extension;
-import xyz.citywide.stomgui.gui.java.button.Button;
-import xyz.citywide.stomgui.gui.java.paginated.PaginatedGUI;
+import xyz.citywide.stomgui.gui.java.paginated.button.Button;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,20 +15,18 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 final class PageImpl implements Page {
-    private final PaginatedGUI parent;
     private final Consumer<InventoryPreClickEvent> clickHandler;
     private final Consumer<InventoryCloseEvent> closeHandler;
     @Getter private final HashMap<Integer, Button> buttons;
     @Getter private final Extension extension;
 
-    public PageImpl(@NotNull PaginatedGUI parent, @NotNull HashMap<Integer, Button> buttons, Consumer<InventoryPreClickEvent> clickHandler, Consumer<InventoryCloseEvent> closeHandler, Extension extension, @Nullable Button fillBlanks) {
-        this.parent = parent;
+    public PageImpl(@NotNull InventoryType type, HashMap<Integer, Button> buttons, Consumer<InventoryPreClickEvent> clickHandler, Consumer<InventoryCloseEvent> closeHandler, Extension extension, @Nullable Button fillBlanks) {
         this.clickHandler = clickHandler;
         this.closeHandler = closeHandler;
         this.extension = extension;
         this.buttons = buttons;
         if(fillBlanks != null)
-            for (int i = 0; i < parent.type().getSize(); i++)
+            for (int i = 0; i < type.getSize(); i++)
                 if (!buttons.containsKey(i))
                     buttons.put(i, fillBlanks);
     }
@@ -52,17 +49,12 @@ final class PageImpl implements Page {
     }
 
     @Override
-    public PaginatedGUI parent() {
-        return parent;
-    }
-
-    @Override
     public Map<Integer, Button> buttons() {
         return Collections.unmodifiableMap(buttons);
     }
 
     static class Builder implements Page.Builder {
-        private final PaginatedGUI parent;
+        private final InventoryType type;
         private final HashMap<Integer, Button> buttons;
         private int nextButton;
         private Consumer<InventoryPreClickEvent> clickHandler;
@@ -70,8 +62,8 @@ final class PageImpl implements Page {
         private Button fillBlanks;
         private final Extension extension;
 
-        public Builder(PaginatedGUI parent, InventoryType type, Extension extension) {
-            this.parent = parent;
+        public Builder(InventoryType type, Extension extension) {
+            this.type = type;
             this.extension = extension;
             buttons = new HashMap<>();
             nextButton = 0;
@@ -79,7 +71,7 @@ final class PageImpl implements Page {
 
         @Override
         public Page.Builder button(Button button) {
-            if(nextButton > parent.type().getSize() - 1)
+            if(nextButton > type.getSize() - 1)
                 throw new UnsupportedOperationException();
             buttons.put(nextButton, button);
             nextButton++;
@@ -88,7 +80,7 @@ final class PageImpl implements Page {
 
         @Override
         public Page.Builder button(int slot, Button button) {
-            if(slot > parent.type().getSize() - 1)
+            if(slot > type.getSize() - 1)
                 throw new UnsupportedOperationException();
             buttons.put(slot, button);
             nextButton = slot + 1;
@@ -115,7 +107,7 @@ final class PageImpl implements Page {
 
         @Override
         public Page build() {
-            return new PageImpl(parent, buttons, clickHandler, closeHandler, extension, fillBlanks);
+            return new PageImpl(type, buttons, clickHandler, closeHandler, extension, fillBlanks);
         }
     }
 }
