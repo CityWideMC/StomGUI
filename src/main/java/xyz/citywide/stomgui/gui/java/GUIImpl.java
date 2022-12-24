@@ -13,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 import xyz.citywide.citystom.Extension;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 final class GUIImpl extends Inventory implements GUI {
@@ -24,8 +23,7 @@ final class GUIImpl extends Inventory implements GUI {
     @Getter private final Extension extension;
 
     public GUIImpl(@NotNull InventoryType type, @NotNull Component title, @NotNull HashMap<Integer, Button> buttons, Consumer<InventoryPreClickEvent> clickHandler, Consumer<InventoryCloseEvent> closeHandler, Extension extension, @Nullable Button fillBlanks) {
-        super(Objects.requireNonNull(type, "type"), Objects.requireNonNull(title, "title"));
-        Objects.requireNonNull(buttons, "buttons");
+        super(type, title);
         this.type = type;
         this.clickHandler = clickHandler;
         this.closeHandler = closeHandler;
@@ -69,13 +67,14 @@ final class GUIImpl extends Inventory implements GUI {
 
     @Override
     public void setButton(int slot, Button button) {
-        this.buttons.remove(slot);
-        this.buttons.put(slot, button);
+        if(buttons.containsKey(slot))
+            buttons.remove(slot, buttons.get(slot));
+        buttons.put(slot, button);
     }
 
     @Override
     public void refreshInventory() {
-        this.buttons.forEach((slot, button) -> this.setItemStack(slot, button.stack()));
+        buttons.forEach((slot, button) -> setItemStack(slot, button.stack()));
     }
 
     static class Builder implements GUI.Builder {
