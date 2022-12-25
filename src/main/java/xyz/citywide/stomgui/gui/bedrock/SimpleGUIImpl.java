@@ -4,7 +4,6 @@ import lombok.Getter;
 import me.heroostech.geyserutils.FloodgateApi;
 import me.heroostech.geyserutils.forms.SimpleForm;
 import me.heroostech.geyserutils.forms.response.SimpleFormResponse;
-import me.heroostech.geyserutils.util.FormImage;
 import xyz.citywide.stomgui.gui.bedrock.button.ButtonComponent;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.Event;
@@ -28,11 +27,10 @@ final class SimpleGUIImpl implements SimpleGUI {
     @Getter private final HashMap<Integer, ButtonComponent> buttons;
     @Getter private final Extension extension;
 
-    public SimpleGUIImpl(@NotNull UUID player, @NotNull String title, @NotNull String content, @NotNull HashMap<Integer, ButtonComponent> buttons, @NotNull Consumer<SimpleFormResponse> clickHandler, @NotNull Extension extension) {
+    public SimpleGUIImpl(@NotNull UUID player, @NotNull String title, @NotNull String content, @NotNull HashMap<Integer, ButtonComponent> buttons, Consumer<SimpleFormResponse> clickHandler, @NotNull Extension extension) {
         Objects.requireNonNull(title, "title");
         Objects.requireNonNull(content, "content");
         Objects.requireNonNull(buttons, "buttons");
-        Objects.requireNonNull(clickHandler, "clickHandler");
         Objects.requireNonNull(extension, "extension");
         this.title = title;
         this.content = content;
@@ -40,10 +38,11 @@ final class SimpleGUIImpl implements SimpleGUI {
         this.extension = extension;
         this.buttons = buttons;
         this.player = player;
-        this.form = new SimpleForm(title, content, buttons.values().stream().map(button -> new me.heroostech.geyserutils.component.ButtonComponent(button.text(), new FormImage(FormImage.Type.fromName(button.image().type().name()), button.image().data()))).toList(), player);
+        this.form = new SimpleForm(title, content, buttons.values().stream().map(button -> new me.heroostech.geyserutils.component.ButtonComponent(button.text(), button.image())).toList(), player);
         this.listener = EventListener.of(SimpleFormResponse.class, event -> {
             if(event.form().equals(form)) {
-                this.clickHandler.accept(event);
+                if(this.clickHandler != null)
+                    this.clickHandler.accept(event);
                 this.buttons.values().forEach(button -> button.clickHandler().accept(this, MinecraftServer.getConnectionManager().getPlayer(player)));
                 removeListener();
             }

@@ -33,6 +33,7 @@ final class PaginatedGUIImpl extends Inventory implements PaginatedGUI {
         this.closeHandler = closeHandler;
         this.extension = extension;
         this.pages = pages;
+        page = 0;
         refreshInventory();
     }
 
@@ -110,6 +111,7 @@ final class PaginatedGUIImpl extends Inventory implements PaginatedGUI {
             this.title = title;
             this.type = type;
             this.pages = new HashMap<>();
+            nextPage = 0;
         }
 
         @Override
@@ -126,7 +128,7 @@ final class PaginatedGUIImpl extends Inventory implements PaginatedGUI {
 
         @Override
         public PaginatedGUI.Builder page(Page page) {
-            pages.put(nextPage, page);
+            page(nextPage, page);
             nextPage++;
             return this;
         }

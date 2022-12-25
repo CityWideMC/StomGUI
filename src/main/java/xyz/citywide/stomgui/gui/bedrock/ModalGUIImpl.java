@@ -23,12 +23,11 @@ final class ModalGUIImpl implements ModalGUI {
     @Getter private final String title;
     @Getter private final Extension extension;
 
-    public ModalGUIImpl(@NotNull UUID player, @NotNull String title, @NotNull String content, @NotNull String button1, @NotNull String button2, @NotNull Consumer<ModalFormResponse> clickHandler, @NotNull Extension extension) {
+    public ModalGUIImpl(@NotNull UUID player, @NotNull String title, @NotNull String content, @NotNull String button1, @NotNull String button2, Consumer<ModalFormResponse> clickHandler, @NotNull Extension extension) {
         Objects.requireNonNull(title, "title");
         Objects.requireNonNull(content, "content");
         Objects.requireNonNull(button1, "button1");
         Objects.requireNonNull(button2, "button2");
-        Objects.requireNonNull(clickHandler, "clickHandler");
         Objects.requireNonNull(extension, "extension");
         this.title = title;
         this.content = content;
@@ -38,7 +37,8 @@ final class ModalGUIImpl implements ModalGUI {
         this.form = new ModalForm(title, content, button1, button2, player);
         this.listener = EventListener.of(ModalFormResponse.class, event -> {
             if(event.form().equals(form)) {
-                this.clickHandler.accept(event);
+                if(this.clickHandler != null)
+                    this.clickHandler.accept(event);
                 removeListener();
             }
         });
