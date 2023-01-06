@@ -3,8 +3,8 @@ plugins {
     `maven-publish`
 }
 
-group = "me.heroostech.stomgui"
-version = "v1.0.0"
+group = "xyz.citywide.stomgui"
+version = "2.0"
 
 repositories {
     mavenCentral()
@@ -16,15 +16,16 @@ dependencies {
     compileOnly(libs.minestom)
     compileOnly(libs.citystom)
     compileOnly(libs.lombok)
+    compileOnly(libs.geyserutils)
     annotationProcessor(libs.lombok)
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "me.heroostech.stomgui"
+            groupId = "xyz.citywide.stomgui"
             artifactId = "StomGUI"
-            version = "v1.0.0"
+            version = "2.0"
 
             from(components["java"])
         }

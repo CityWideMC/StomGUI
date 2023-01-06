@@ -1,34 +1,34 @@
-package me.heroostech.stomgui.gui;
+package xyz.citywide.stomgui.gui.java.paginated;
 
 import lombok.RequiredArgsConstructor;
-import me.heroostech.citystom.listener.Listener;
-import me.heroostech.stomgui.StomGUI;
-import me.heroostech.stomgui.button.Button;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;
 import net.minestom.server.event.inventory.InventoryCloseEvent;
 import net.minestom.server.event.inventory.InventoryPreClickEvent;
 import net.minestom.server.event.trait.InventoryEvent;
 import net.minestom.server.inventory.Inventory;
+import xyz.citywide.citystom.Extension;
+import xyz.citywide.stomgui.gui.java.paginated.button.Button;
+
+import java.util.Objects;
 
 @RequiredArgsConstructor
-public final class GUIListener implements Listener<InventoryEvent> {
+public final class PaginatedGUIListener {
 
-    private final StomGUI stomGUI;
+    private final Extension extension;
 
-    @Override
     public EventNode<InventoryEvent> events() {
         EventNode<InventoryEvent> node = EventNode.type("stomgui", EventFilter.INVENTORY);
 
         node.addListener(InventoryPreClickEvent.class, event -> {
             Inventory inventory = event.getInventory();
 
-            if(!(inventory instanceof GUIImpl gui)) return;
-            if(!gui.getStomGUI().equals(stomGUI)) return;
+            if(!(inventory instanceof PaginatedGUIImpl gui)) return;
+            if(!gui.getExtension().equals(extension)) return;
 
             event.setCancelled(true);
 
-            Button button = gui.getButtons().get(event.getSlot());
+            Button button = Objects.requireNonNull(gui.getPage(gui.page())).buttons().get(event.getSlot());
 
             if(button == null) return;
 
@@ -42,8 +42,8 @@ public final class GUIListener implements Listener<InventoryEvent> {
         node.addListener(InventoryCloseEvent.class, event -> {
            Inventory inventory = event.getInventory();
 
-            if(!(inventory instanceof GUIImpl gui)) return;
-            if(!gui.getStomGUI().equals(stomGUI)) return;
+            if(!(inventory instanceof PaginatedGUIImpl gui)) return;
+            if(!gui.getExtension().equals(extension)) return;
 
             if(gui.closeHandler() != null)
                 gui.closeHandler().accept(event);

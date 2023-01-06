@@ -1,8 +1,7 @@
-package me.heroostech.stomgui.gui;
+package xyz.citywide.stomgui.gui.java;
 
 import lombok.Getter;
-import me.heroostech.stomgui.StomGUI;
-import me.heroostech.stomgui.button.Button;
+import xyz.citywide.stomgui.gui.java.button.Button;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.inventory.InventoryCloseEvent;
@@ -11,27 +10,24 @@ import net.minestom.server.inventory.Inventory;
 import net.minestom.server.inventory.InventoryType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.citywide.citystom.Extension;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.function.Consumer;
 
-class GUIImpl extends Inventory implements GUI {
+final class GUIImpl extends Inventory implements GUI {
     private final InventoryType type;
     private final Consumer<InventoryPreClickEvent> clickHandler;
     private final Consumer<InventoryCloseEvent> closeHandler;
     @Getter private final HashMap<Integer, Button> buttons;
-    @Getter private final StomGUI stomGUI;
+    @Getter private final Extension extension;
 
-    public GUIImpl(@NotNull InventoryType type, @NotNull Component title, @NotNull HashMap<Integer, Button> buttons, @NotNull Consumer<InventoryPreClickEvent> clickHandler, @NotNull Consumer<InventoryCloseEvent> closeHandler, @NotNull StomGUI gui, @Nullable Button fillBlanks) {
-        super(Objects.requireNonNull(type, "type"), Objects.requireNonNull(title, "title"));
-        Objects.requireNonNull(buttons, "buttons");
-        Objects.requireNonNull(clickHandler, "clickHandler");
-        Objects.requireNonNull(closeHandler, "closeHandler");
+    public GUIImpl(@NotNull InventoryType type, @NotNull Component title, @NotNull HashMap<Integer, Button> buttons, Consumer<InventoryPreClickEvent> clickHandler, Consumer<InventoryCloseEvent> closeHandler, Extension extension, @Nullable Button fillBlanks) {
+        super(type, title);
         this.type = type;
         this.clickHandler = clickHandler;
         this.closeHandler = closeHandler;
-        this.stomGUI = gui;
+        this.extension = extension;
         this.buttons = buttons;
         buttons.forEach((integer, button) -> setItemStack(integer, button.stack()));
         if(fillBlanks != null) {
@@ -71,13 +67,19 @@ class GUIImpl extends Inventory implements GUI {
 
     @Override
     public void setButton(int slot, Button button) {
-        this.buttons.remove(slot);
-        this.buttons.put(slot, button);
+        if(buttons.containsKey(slot))
+            buttons.remove(slot, buttons.get(slot));
+        buttons.put(slot, button);
     }
 
     @Override
     public void refreshInventory() {
-        this.buttons.forEach((slot, button) -> this.setItemStack(slot, button.stack()));
+        buttons.forEach((slot, button) -> setItemStack(slot, button.stack()));
+    }
+
+    @Override
+    public void callClose(Player player) {
+        closeHandler.accept(new InventoryCloseEvent(this, player));
     }
 
     static class Builder implements GUI.Builder {
@@ -88,10 +90,10 @@ class GUIImpl extends Inventory implements GUI {
         private Consumer<InventoryPreClickEvent> clickHandler;
         private Consumer<InventoryCloseEvent> closeHandler;
         private Button fillBlanks;
-        private final StomGUI stomGUI;
+        private final Extension extension;
 
-        public Builder(Component title, InventoryType type, StomGUI stomGUI) {
-            this.stomGUI = stomGUI;
+        public Builder(Component title, InventoryType type, Extension extension) {
+            this.extension = extension;
             buttons = new HashMap<>();
             nextButton = 0;
             this.title = title;
@@ -148,7 +150,7 @@ class GUIImpl extends Inventory implements GUI {
 
         @Override
         public GUI build() {
-            return new GUIImpl(type, title, buttons, clickHandler, closeHandler, stomGUI, fillBlanks);
+            return new GUIImpl(type, title, buttons, clickHandler, closeHandler, extension, fillBlanks);
         }
     }
 }
