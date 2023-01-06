@@ -77,6 +77,11 @@ final class GUIImpl extends Inventory implements GUI {
         buttons.forEach((slot, button) -> setItemStack(slot, button.stack()));
     }
 
+    @Override
+    public void callClose(Player player) {
+        closeHandler.accept(new InventoryCloseEvent(this, player));
+    }
+
     static class Builder implements GUI.Builder {
         private Component title;
         private InventoryType type;

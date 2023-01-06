@@ -27,6 +27,7 @@ public sealed interface PaginatedGUI permits PaginatedGUIImpl {
     void nextPage();
     void previousPage();
     void setPage(int page);
+    void callClose(Player player);
     int page();
 
     interface Builder {

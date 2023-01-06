@@ -92,6 +92,11 @@ final class PaginatedGUIImpl extends Inventory implements PaginatedGUI {
     }
 
     @Override
+    public void callClose(Player player) {
+        closeHandler.accept(new InventoryCloseEvent(this, player));
+    }
+
+    @Override
     public int page() {
         return page;
     }

@@ -23,6 +23,7 @@ public sealed interface GUI permits GUIImpl {
     void openInventory(Player player);
     void setButton(int slot, Button button);
     void refreshInventory();
+    void callClose(Player player);
 
     interface Builder {
         Builder title(Component title);
